@@ -42,7 +42,9 @@ public class VersionCommand extends VanillaCommand {
         if (args.length == 0 || !sender.hasPermission("nukkit.command.version.plugins")) {
             final String branch = Nukkit.getBranch();
 
-            sender.sendMessage("§e#########################################\n§cNukkit§3-§dMOT\n§6Build: §b" + branch + '/' + Nukkit.VERSION.substring(4) + "\n§6Multiversion: §bUp to version " + ProtocolInfo.MINECRAFT_VERSION_NETWORK + "\n§e#########################################");
+            //sender.sendMessage("§e#########################################\n§cNukkit§3-§dMOT\n§6Build: §b" + branch + '/' + Nukkit.VERSION.substring(4) + "\n§6Multiversion: §bUp to version " + ProtocolInfo.MINECRAFT_VERSION_NETWORK + "\n§e#########################################");
+            sender.sendMessage("§eNukkit-Mot-FAP §aBuild: " + branch);
+
 
             if (sender.isOp()) {
                 if (!branch.equals("master") || Nukkit.VERSION.equals("git-null")) {

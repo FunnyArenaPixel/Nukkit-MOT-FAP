@@ -2,6 +2,7 @@ package cn.nukkit.network.process.processor.common;
 
 import cn.nukkit.Player;
 import cn.nukkit.PlayerHandle;
+import cn.nukkit.Server;
 import cn.nukkit.inventory.Inventory;
 import cn.nukkit.inventory.PlayerInventory;
 import cn.nukkit.item.Item;
@@ -22,9 +23,7 @@ import org.jetbrains.annotations.NotNull;
 public class MobEquipmentProcessor extends DataPacketProcessor<MobEquipmentPacket> {
 
     public static final MobEquipmentProcessor INSTANCE = new MobEquipmentProcessor();
-
-    private static final int MAX_FAILED = 5;
-
+    private static final int MAX_FAILED = 15;
     @Override
     public void handle(@NotNull PlayerHandle playerHandle, @NotNull MobEquipmentPacket pk) {
         Player player = playerHandle.player;
@@ -40,7 +39,9 @@ public class MobEquipmentProcessor extends DataPacketProcessor<MobEquipmentPacke
             playerHandle.setFailedMobEquipmentPacket(playerHandle.getFailedMobEquipmentPacket() + 1);
             if (playerHandle.getFailedMobEquipmentPacket() > MAX_FAILED) {
                 log.warn("{} Too many failed MobEquipmentPacket", player.getName());
-                player.close("", "Too many failed packets");
+                //player.close("", "Too many failed packets");
+                player.sendMessage("You are kicked from the server because of Too many failed packets");
+                Server.getInstance().dispatchCommand(player,"lobby");
             }
             return;
         }
@@ -52,7 +53,9 @@ public class MobEquipmentProcessor extends DataPacketProcessor<MobEquipmentPacke
             playerHandle.setFailedMobEquipmentPacket(playerHandle.getFailedMobEquipmentPacket() + 1);
             if (playerHandle.getFailedMobEquipmentPacket() > MAX_FAILED) {
                 log.warn("{} Too many failed MobEquipmentPacket", player.getName());
-                player.close("", "Too many failed packets");
+                //player.close("", "Too many failed packets");
+                player.sendMessage("You are kicked from the server because of Too many failed packets");
+                Server.getInstance().dispatchCommand(player,"lobby");
             }
             inv.sendContents(player);
             return;
